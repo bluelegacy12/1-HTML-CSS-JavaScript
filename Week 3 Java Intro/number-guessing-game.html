@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Number Guessing Game</title>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+    <button type="button" onclick="playGame()">Start!</button>
+    <script>
+        function playGame() {
+            const NUMBER = Math.floor(Math.random() * 100) + 1;
+            let tries = 0;
+            let guess;
+
+            while (guess != NUMBER) {
+                guess = prompt("I'm thinking of a number between 1-100.\n\n What is your guess?");
+                tries += 1;
+                if (guess < NUMBER) {
+                    alert('Number is too small!');
+                }
+                else if (guess > NUMBER) {
+                    alert('Number is too large!');
+                }
+                else if (guess == NUMBER){
+                    break;
+                }
+                else {
+                    alert('Number must be a valid integer between 1-100');
+                    tries -= 1;
+                }
+            }
+            alert('You win! The number is ' + NUMBER + '!\n\nYou took ' + tries + ' tries to guess correctly.');
+        }
+    </script>
+</body>
+</html>
