@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Color Guessing Game</title>
+</head>
+<body>
+    <h1>Color Guessing Game</h1>
+    <button type="button" onclick="runGame()">Start Game</button>
+    <script>
+        let highScore = 0;
+        const COLORS_ARRAY = ['gray', 'yellow', 'gold', 'blue', 'green', 'red', 'orange', 'magenta', 'white', 'cyan'];
+        function runGame() {
+            let guess = "";
+            let correct = false;
+            const targetIndex = Math.floor(Math.random() * COLORS_ARRAY.length);
+            const target = COLORS_ARRAY[targetIndex];
+            let tries = 0;
+            
+            while (correct === false) {
+                guess = prompt('I am thinking of one of these colors:\n\n' + COLORS_ARRAY.sort().join(", ") + '\n\nWhat color am I thinking of? Attempts: ' + tries + '\n').toLowerCase();
+                tries += 1;
+                if (guess === null) {
+                    alert('Game canceled. We will miss you!');
+                    return;
+                }
+                correct = checkGuess(guess, target);
+            }
+            alert('Congratulations! The answer was ' + target + '! You guessed correctly after ' + tries + ' tries. Thank you for playing!');
+            document.body.style.background = guess;
+            if (highScore === 0) {
+                highScore = tries;
+            }
+            if (tries < highScore) {
+                highScore = tries;
+            }
+            document.getElementById("displayNum").innerHTML = "High Score: " + highScore;
+        };
+        function checkGuess(guess, target) {
+            let correct = false;
+            if (!COLORS_ARRAY.includes(guess)) {
+                alert('That is not a valid color option.');
+                tries - 1;
+            } else if (guess < target){
+                alert('Color is alphabetically lower.');
+            } else if (guess > target) {
+                alert('Color is alphabetically higher.');
+            } else {
+                return true;
+            }
+            return false;
+        }
+    </script>
+    <h2 id="displayNum">High Score: 0</h2>
+</body>
+</html>
